@@ -74,7 +74,8 @@ app.get('/user/:name', async (req,res) => {
   else {
     const userId = user[0].Id;
     console.log('userId', userId);
-    res.status(200).send(user[0]);
+    res.status(200).json({ message: user[0].Id });
+    //res.status(200).send(user[0]);
   }
   
   }
