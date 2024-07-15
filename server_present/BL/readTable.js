@@ -17,7 +17,7 @@ let readFromTable = async (tableName) => {
                 }
                 con.end(); // Termine la connexion après la requête réussie
                 resolve(result);
-                //console.log(result);
+                console.log(result);
                 //console.log(fields);
             });
         });
@@ -40,7 +40,7 @@ async function fetchDataFromTable(tableName) {
 
 
 
-//readFromTable("Students");
+readFromTable("Business");
 //console.log('readFromTable', readFromTable);
 //console.log('fetchDataFromTable', fetchDataFromTable);
 

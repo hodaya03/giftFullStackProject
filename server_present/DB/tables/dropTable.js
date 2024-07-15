@@ -24,12 +24,12 @@ con.connect(function(err) {
 // dropTable("SelectPresent");
 
 // dropTable("Present");
-// dropTable("Product");
+//dropTable("Product");
 
 // dropTable("Category");
 
-// dropTable("Business");
+ //dropTable("Business");
 // dropTable("User");
-// dropTable("Cart");
+ //dropTable("Cart");
 
 
