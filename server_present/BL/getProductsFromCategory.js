@@ -30,6 +30,8 @@ let readFromTable = async (tableName, line, condition) => {
 
 async function getProductsFromCategory(category) {
   try {
+    console.log("category:", category);
+
     const data = await readFromTable("Product", "Category", category);
     console.log("data:", data);
     return data;

@@ -36,4 +36,22 @@ app.delete("/products/:id", async (req, res) => {
     }
   });
 
+  //Pour afficher le panier
+  app.get("/:presentId", async (req, res) => {
+    const { presentId } = req.params.presentId;
+    try {
+  
+        const myCart = fetchDataFromTableCondition("Cart", "PresentId", presentId);
+       
+        if (myCart.length === 0) {
+            return res.status(404).json({ error: 'Cart not found' });
+        }
+        
+        res.json(myCart);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
   module.exports = app;

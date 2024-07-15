@@ -1,28 +1,49 @@
-
-// const { use } = require("express/lib/application");
 const mysql = require("mysql2");
 
 const connectToDb = () => {
-  connectionDB = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Ofakim123?",
-  database: "presentDB",
-});
-// const connectionDB = mysql.createConnection({
+  const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Ofakim123?",
+    database: "presentDB",
+  });
+
+  connection.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected to presentDB successfully!");
+  });
+
+  return connection;
+};
+
+module.exports = { connectToDb };
+
+
+
+// // const { use } = require("express/lib/application");
+// const mysql = require("mysql2");
+
+// const connectToDb = () => {
+//   connectionDB = mysql.createConnection({
 //   host: "localhost",
 //   user: "root",
 //   password: "Ofakim123?",
 //   database: "presentDB",
 // });
+// // const connectionDB = mysql.createConnection({
+// //   host: "localhost",
+// //   user: "root",
+// //   password: "Ofakim123?",
+// //   database: "presentDB",
+// // });
 
 
-connectionDB.connect(function (err) {
-    if (err) throw err;
-  console.log("Connected to mydb successfully!");
-});
-return connectionDB;
-}
+// connectionDB.connect(function (err) {
+//     if (err) throw err;
+//   console.log("Connected to mydb successfully!");
+// });
+// return connectionDB;
+// }
 
 
 // const connectionDB = () => 

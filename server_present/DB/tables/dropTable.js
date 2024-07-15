@@ -23,13 +23,14 @@ con.connect(function(err) {
 
 // dropTable("SelectPresent");
 
-// dropTable("Present");
-//dropTable("Product");
+  dropTable("Present");
+ //dropTable("Product");
 
 // dropTable("Category");
 
- //dropTable("Business");
+
 // dropTable("User");
- //dropTable("Cart");
+ // dropTable("Cart");
 
 
+//  dropTable("Business");

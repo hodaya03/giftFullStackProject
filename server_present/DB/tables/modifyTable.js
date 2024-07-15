@@ -5,7 +5,7 @@ async function alterTable(tableName, colonneName, modification) {
     host: "localhost",
     user: "root", // Votre nom d'utilisateur MySQL
     password: "Ofakim123?", // Votre mot de passe MySQL
-    database: "userDB" // Votre nom de base de données MySQL
+    database: "presentDB" // Votre nom de base de données MySQL
   });
 
   try {
@@ -24,4 +24,6 @@ async function alterTable(tableName, colonneName, modification) {
 }
 
 // Appel de la fonction pour modifier la colonne 'phone'
-alterTable("User", "age", "INT");
+alterTable("Present", "MaxPrice", "NVARCHAR(50)");
+alterTable("Product", "Price", "NVARCHAR(50)");
+alterTable("Cart", "Price", "NVARCHAR(50)");

@@ -1,9 +1,24 @@
-const connectionDB = require("./connectToDB")
+var mysql = require('mysql2');
+const { connectToDb } = require('../DB/tables/connectToDB');
+  
+  
+const sqlStatements = [
 
-var createCategory=
-"CREATE TABLE IF NOT EXISTS `Category` (`Id` INT AUTO_INCREMENT NOT NULL, `Name` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`));";
+  "INSERT INTO Category ( Name) VALUES ('Jewlery')",
+  'INSERT INTO category ( Name) VALUES ("Toys")',
+  'INSERT INTO category ( Name) VALUES ("Decorations")',
+  'INSERT INTO category ( Name) VALUES ("Clothing")'
+ 
+    
+    
+     ];
+    
+    sqlStatements.forEach((sql) => {
+      connection.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("inserted!");
+      });
+    });
+    
 
-connectionDB.query(createCategory, function(err, result){
-    if (err) throw err;
-    console.log("category table created!");
-});
+  

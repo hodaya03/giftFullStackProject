@@ -1,9 +1,22 @@
-const connectionDB = require("./connectToDB")
+var mysql = require("mysql2");
+const { connectToDb } = require("../tables/connectToDB");
 
-var createUser=
-"CREATE TABLE IF NOT EXISTS `User` (`Id` INT AUTO_INCREMENT NOT NULL,   `Mail` VARCHAR(50) NOT NULL, `Password` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`));";
+const connection = connectToDb();
 
-connectionDB.query(createUser, function(err, result){
+// Your further code that uses the `connection` variable
+
+const sqlStatements = [
+  "INSERT INTO User ( Mail, Password) VALUES ('hb05@gmail.com', '125')",
+];
+
+sqlStatements.forEach((sql) => {
+  connection.query(sql, (err, result) => {
     if (err) throw err;
-    console.log("user table created!");
+    console.log("inserted!");
+  });
+});
+
+connection.end((err) => {
+  if (err) throw err;
+  console.log("Connection closed");
 });
