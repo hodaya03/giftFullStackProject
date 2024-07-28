@@ -85,7 +85,7 @@ function insertToTable(tableName, columns, parameters) {
 
 // //Product
 // 5
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Modern Sofa", "./img/Decorations/modern_sofa.jpeg", "1", "1", "899.99", "Comfortable modern sofa"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Modern Sofa", "https://i.pinimg.com/736x/56/93/43/5693432ac9e03b7cf8a4aec5bb7eff50.jpg", "1", "1", "899.99", "Comfortable modern sofa"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Designer Dress", "img/Colthes/designer_dress.jpeg", "2", "2", "299.99", "Stylish designer dress"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Diamond Ring", "img/Jewelry/diamond_ring.jpeg", "3", "3", "1999.99", "Elegant diamond ring"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Action Figure", "img/Toys/action_figure.jpeg", "4", "4", "49.99", "Popular action figure"');

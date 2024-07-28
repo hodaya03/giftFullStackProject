@@ -18,6 +18,7 @@ export default function Product(){
             .then((response) => {
                 console.log('Product details:', response);
                 setProduct(response); // Assuming response is the detailed product object
+                console.log('image', response.Image); 
             })
             .catch((error) => {
                 console.error('Error fetching product details:', error);
