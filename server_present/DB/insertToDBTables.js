@@ -21,7 +21,7 @@ function insertToTable(tableName, columns, parameters) {
 });
 }
       
-  
+
       
 //המספרים מסבירים באיזה בדר למלאות את הדטבייס
    
@@ -86,8 +86,8 @@ function insertToTable(tableName, columns, parameters) {
 // //Product
 // 5
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Modern Sofa", "https://i.pinimg.com/736x/56/93/43/5693432ac9e03b7cf8a4aec5bb7eff50.jpg", "1", "1", "899.99", "Comfortable modern sofa"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Designer Dress", "img/Colthes/designer_dress.jpeg", "2", "2", "299.99", "Stylish designer dress"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Diamond Ring", "img/Jewelry/diamond_ring.jpeg", "3", "3", "1999.99", "Elegant diamond ring"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', `"Designer Dress", "https://static3.azafashions.com/tr:w-317/uploads/product_gallery/1549991_3-0294381001597414635.jpg?noopt=true", "2", "2", "299.99", "Stylish designer dress"`);
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Diamond Ring", "https://cdn0.weddingwire.in/article/3503/3_2/960/jpg/3053-diamond-ring-price-in-india-candere-cover.jpeg", "3", "3", "1999.99", "Elegant diamond ring"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Action Figure", "img/Toys/action_figure.jpeg", "4", "4", "49.99", "Popular action figure"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Smartphone", "img/Electronics/smartphone.jpeg", "5", "5", "799.99", "Latest model smartphone"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Fantasy Novel", "img/Books/fantasy_novel.jpeg", "6", "6", "19.99", "Best-selling fantasy novel"');
