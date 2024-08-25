@@ -1,46 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { GoToServer } from '../fetch';
-import GiftDetails from './GiftDetails';
-import ProductsToChoose from './ProductsToChoose';
-import '../css/Gifts.css'; // Import the CSS file
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { GoToServer } from "../fetch";
+import GiftDetails from "./GiftDetails";
+import ProductsToChoose from "./ProductsToChoose";
+import "../css/Gifts.css"; // Import the CSS file
 
 export default function Gift() {
-    const { idGift } = useParams();
-    const [giftData, setGiftData] = useState({});
-    const [products, setProducts] = useState([]);
-    const [error, setError] = useState(null);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [selectedProducts, setSelectedProducts] = useState([]);
-    const [availableProducts, setAvailableProducts] = useState([]);
-    const [viewProducts, setViewProducts] = useState(false);
-    const navigate = useNavigate();
+  const { idGift } = useParams();
+  const [giftData, setGiftData] = useState({});
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalSelectedPrice, setTotalSelectedPrice] = useState(0);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [availableProducts, setAvailableProducts] = useState([]);
+  const [viewProducts, setViewProducts] = useState(false);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchGiftData = async () => {
-            try {
-                const query = `/api/gifts/${idGift}`;
-                const response = await GoToServer(query, 'GET');
-                setGiftData(response.giftDetails);
-                setProducts(response.products);
+  useEffect(() => {
+    const fetchGiftData = async () => {
+      try {
+        const query = `/api/gifts/${idGift}`;
+        const response = await GoToServer(query, "GET");
+        setGiftData(response.giftDetails);
+        setProducts(response.products);
 
-                // Ensure totalPrice is treated as a number
+        // Ensure totalPrice is treated as a number
         const totalPrice = parseFloat(response.giftDetails.Amount);
         setTotalPrice(totalPrice);
-                // setTotalPrice(response.giftDetails.Amount);
-            // Set the selected products from the server response
+        // setTotalPrice(response.giftDetails.Amount);
+        // Set the selected products from the server response
         const selectedProducts = response.selectedProducts || [];
         setSelectedProducts(selectedProducts);
-        console.log('response.giftDetails.Category', response.giftDetails.Category)
+        console.log(
+          "response.giftDetails.Category",
+          response.giftDetails.Category
+        );
 
         // Calculate the total price of the already selected products
         const totalSelectedPrice = selectedProducts.reduce(
           (total, product) => total + parseFloat(product.Price), // Use parseFloat to convert the Price to a number
           0
         );
+        setTotalSelectedPrice(totalSelectedPrice);
         console.log("totalSelectedPrice", totalSelectedPrice);
 
-          // Calculate remaining budget
+        // Calculate remaining budget
         const remainingBudget = totalPrice - totalSelectedPrice;
 
         // Filter available products based on the remaining budget
@@ -50,121 +55,115 @@ export default function Gift() {
           )
         );
         console.log("remainingBudget", remainingBudget);
-        console.log('availableProducts', availableProducts);   
-            
-            
-            } catch (error) {
-                setError(error.message);
-            }
-        };
+        console.log("availableProducts", availableProducts);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
 
-        fetchGiftData();
-    }, [idGift]);
+    fetchGiftData();
+  }, [idGift]);
 
-    useEffect(() => {
-        
-        
-        if (products && products.length > 0 && giftData.Amount) { 
-    
-        const filterProducts = () => {
-            const filteredProducts = products.filter(
-                (product) => parseInt(product.Price, 10) <= giftData.Amount
-            );
-            setAvailableProducts(filteredProducts);
-            console.log('giftData.Amount',giftData.Amount);
-            console.log('availableProducts',availableProducts);
-        };
+  useEffect(() => {
+    if (products && products.length > 0 && giftData.Amount) {
+      const filterProducts = () => {
+        const filteredProducts = products.filter(
+          //   (product) => parseInt(product.Price, 10) <= giftData.Amount
+          (product) => parseInt(product.Price, 10) <= (totalPrice-totalSelectedPrice)
+        );
+        setAvailableProducts(filteredProducts);
+        console.log("giftData.Amount", giftData.Amount);
+        console.log("availableProducts", availableProducts);
+      };
 
-        //if (products.length > 0 && giftData.Amount) {
-            filterProducts();
-        }
-    }, [products, giftData.Amount]);
+      //if (products.length > 0 && giftData.Amount) {
+      filterProducts();
+    }
+  }, [products, giftData.Amount]);
 
-    useEffect(() => {
-        console.log('availableProducts', availableProducts);
-      }, [availableProducts]); 
+  useEffect(() => {
+    console.log("availableProducts", availableProducts);
+  }, [availableProducts]);
 
-    const handleProductSelect = async (product) => {
-        const newBudget = totalPrice - product.Price;
-        console.log("newBudget", newBudget)
-        console.log("totalPrice", totalPrice)
+  const handleProductSelect = async (product) => {
+    // const newBudget = totalPrice - product.Price;
+        const newBudget = totalSelectedPrice - product.Price;
 
-        const existingProduct = selectedProducts.find(p => p.Id === product.Id);
+    console.log("newBudget", newBudget);
+    console.log("totalSelectedPrice", totalSelectedPrice);
 
-        // const orderData = {
-        //     ProductId: product.Id,
-        //     ProductName: product.Name,
-        //     Amount: 1,
-        //     Price: product.Price,
-        //     PresentId: parseInt(idGift, 10)
-        // };
+    const existingProduct = selectedProducts.find((p) => p.Id === product.Id);
 
-        if (newBudget >= 0) {
-            try {
-                const query = `/products/${product.Id}`;
-                let response;
+    if (newBudget >= 0) {
+      try {
+        const query = `/products/${product.Id}`;
+        let response;
 
-                if (existingProduct) {
-                    const updatedProduct = { ...existingProduct, Amount: existingProduct.Amount + 1 };
-                    console.log('updatedProduct', updatedProduct);
-                    response = await GoToServer(query, "PUT", updatedProduct);
-                    setSelectedProducts(selectedProducts.map(p => 
-                        p.Id === product.Id ? updatedProduct : p
-                    ));
-                } else {
-                    const orderData = {
-                        ProductId: product.Id,
-                        ProductName: product.Name,
-                        Amount: 1,
-                        Price: product.Price,
-                        PresentId: parseInt(idGift, 10)
-                    };
-                    response = await GoToServer(query, "POST", orderData);
-                    setSelectedProducts([...selectedProducts, orderData]);
-                }
-
-                alert(response.message);
-                setTotalPrice(newBudget);
-                setAvailableProducts(
-                    availableProducts.filter(p => product.Price <= newBudget)
-                );
-                
-            } catch (error) {
-                console.error('Error:', error);
-            }
+        if (existingProduct) {
+          const updatedProduct = {
+            ...existingProduct,
+            Amount: existingProduct.Amount + 1,
+          };
+          console.log("updatedProduct", updatedProduct);
+          response = await GoToServer(query, "PUT", updatedProduct);
+          setSelectedProducts(
+            selectedProducts.map((p) =>
+              p.Id === product.Id ? updatedProduct : p
+            )
+          );
         } else {
-            alert('Selected product exceeds the maximum price limit.');
+          const orderData = {
+            ProductId: product.Id,
+            ProductName: product.Name,
+            Amount: 1,
+            Price: product.Price,
+            PresentId: parseInt(idGift, 10),
+          };
+          response = await GoToServer(query, "POST", orderData);
+          setSelectedProducts([...selectedProducts, orderData]);
         }
-    };
 
-    const goToChooseGift = () => {
-        setViewProducts(true);
-    };
-
-    if (error) {
-        return <div>Error: {error}</div>;
+        alert(response.message);
+        // setTotalPrice(newBudget);
+        setTotalSelectedPrice(newBudget);
+        setAvailableProducts(
+          availableProducts.filter((p) => product.Price <= newBudget)
+        );
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    } else {
+      alert("Selected product exceeds the maximum price limit.");
     }
+  };
 
-    if (!giftData) {
-        return <div>Loading...</div>;
-    }
+  const goToChooseGift = () => {
+    setViewProducts(true);
+  };
 
-    return (
-        <div>
-            <h1>You received a gift !! </h1>
-            {viewProducts ? (
-                <ProductsToChoose 
-                    availableProducts={availableProducts} 
-                    selectedProducts={selectedProducts} 
-                    handleProductSelect={handleProductSelect} 
-                />
-            ) : (
-                <GiftDetails giftData={giftData} goToChooseGift={goToChooseGift} />
-            )}
-        </div>
-    );
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!giftData) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <h1>You received a gift !! </h1>
+      {viewProducts ? (
+        <ProductsToChoose
+          availableProducts={availableProducts}
+          selectedProducts={selectedProducts}
+          handleProductSelect={handleProductSelect}
+        />
+      ) : (
+        <GiftDetails giftData={giftData} goToChooseGift={goToChooseGift} />
+      )}
+    </div>
+  );
 }
-
 
 // import React, { useState, useEffect } from 'react';
 // import { useParams, useNavigate } from 'react-router-dom';
@@ -207,7 +206,6 @@ export default function Gift() {
 
 //         fetchGiftData();
 //     }, [idGift]);
-
 
 //     useEffect(() => {
 //         const filterProducts = () => {
@@ -263,9 +261,6 @@ export default function Gift() {
 //         else {
 //             alert('Selected product exceeds the maximum price limit.')
 //         };
-   
-        
-
 
 //     };
 
@@ -285,10 +280,10 @@ export default function Gift() {
 //         <div>
 //             <h1>You received a gift !! </h1>
 //             {viewProducts ? (
-//                 <ProductsToChoose 
-//                     availableProducts={availableProducts} 
-//                     selectedProducts={selectedProducts} 
-//                     handleProductSelect={handleProductSelect} 
+//                 <ProductsToChoose
+//                     availableProducts={availableProducts}
+//                     selectedProducts={selectedProducts}
+//                     handleProductSelect={handleProductSelect}
 //                 />
 //             ) : (
 //                 <GiftDetails giftData={giftData} goToChooseGift={goToChooseGift} />
@@ -316,4 +311,3 @@ export default function Gift() {
 //     );*/ }
 //     </div>
 //     )}
-
