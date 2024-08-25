@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const app = Router();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const { authenticateUser } = require("../BL/fetchUserAndPwd");
 const { insertToTable } = require("../BL/insertToTable");
 const { fetchDataFromTableCondition } = require("../BL/selectCondition");
@@ -62,28 +62,21 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.get('/user/:name', async (req,res) => {
+app.get("/user/:name", async (req, res) => {
   try {
-  const userName = req.params.name;
-  console.log('userName', userName);
-  const user = await fetchDataFromTableCondition('User', "Mail", userName);
-  console.log('user', user);
-  if (!user || user.length === 0){
-    res.status(401).send("User not found.");
-  }
-  else {
-    const userId = user[0].Id;
-    console.log('userId', userId);
-    res.status(200).json({ message: user[0].Id });
-    //res.status(200).send(user[0]);
-  }
-  
-  }
-   catch (error) {
+    const userName = req.params.name;
+    // console.log('userName', userName);
+    const user = await fetchDataFromTableCondition("User", "Mail", userName);
+    if (!user || user.length === 0) {
+      res.status(401).send("User not found.");
+    } else {
+      const userId = user[0].Id;
+      console.log("userId", userId);
+      res.status(200).json({ message: user[0].Id });
+    }
+  } catch (error) {
     console.error("Error finding user:", error.message);
     res.status(401).send("Finding User failed");
-  }
-
-});
+  }});
 
 module.exports = app;

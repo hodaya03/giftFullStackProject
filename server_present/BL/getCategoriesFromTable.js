@@ -11,25 +11,28 @@ let readFromTable = async (tableName, line, condition) => {
         return;
       }
 
-      const sqlQuery = `SELECT * FROM ${tableName} WHERE ${line} = '${condition}'`;
-      
-      // let sqlQuery;
+      //   const sqlQuery = `SELECT * FROM ${tableName} WHERE ${line} = '${condition}'`;
 
-      // // Check if condition is an array (multiple conditions)
-      // if (Array.isArray(condition)) {
-      //   const placeholders = condition.map(() => '?').join(', ');
-      //   sqlQuery = `SELECT * FROM ${tableName} WHERE ${line} IN (${placeholders})`;
-      // } else {
-      //   // Single condition
-      //   sqlQuery = `SELECT * FROM ${tableName} WHERE ${line} = ?`;
-      // }
-      
+      let sqlQuery;
+      let values;
+
+      // Check if condition is an array (multiple conditions)
+      if (Array.isArray(condition)) {
+        const placeholders = condition.map(() => "?").join(", ");
+        sqlQuery = `SELECT * FROM ${tableName} WHERE ${line} IN (${placeholders})`;
+        values = condition; // Pass the array of conditions as the values
+      } else {
+        // Single condition
+        sqlQuery = `SELECT * FROM ${tableName} WHERE ${line} = ?`;
+        values = [condition]; // Wrap single condition in an array
+        // console.log("values", values);
+      }
+
       console.log("Executing query:", sqlQuery);
-      con.query(sqlQuery, function (err, result, fields) {
+      con.query(sqlQuery, values, function (err, result, fields) {
         if (err) {
           console.error(`Could not select from ${tableName} table`, err);
           reject(err);
-
           return;
         }
         con.end(); // Termine la connexion après la requête réussie
@@ -42,16 +45,14 @@ let readFromTable = async (tableName, line, condition) => {
   });
 };
 
-
-
-async function fetchDataFromTableCondition(tableName, line, condition) {
+async function getCategoriesFromTable(tableName, line, condition) {
   try {
-      const data = await readFromTable(tableName, line, condition);
-      // console.log('Fetched data:', data);
-      return data;
+    const data = await readFromTable(tableName, line, condition);
+    // console.log('Fetched data:', data);
+    return data;
   } catch (error) {
-      console.error("Error fetching data:", error);
-      return null;
+    console.error("Error fetching data:", error);
+    return null;
   }
 }
 
@@ -61,7 +62,4 @@ async function fetchDataFromTableCondition(tableName, line, condition) {
 //   return await executeQuery(sqlQuery, values);
 // }
 
-
-
-
-module.exports = { fetchDataFromTableCondition };
+module.exports = { getCategoriesFromTable };

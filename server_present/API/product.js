@@ -39,6 +39,7 @@ app.get("/product/:id", async (req, res) => {
 // });
 
   // Route pour ajouter un produit
+  
 app.post("/products/:id", async (req, res) => {
   const { ProductId, ProductName, Amount, Price, PresentId } = req.body;
 

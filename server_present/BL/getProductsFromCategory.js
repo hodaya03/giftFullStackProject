@@ -11,8 +11,21 @@ let readFromTable = async (tableName, line, condition) => {
         reject(err); 
         return;
       }
+
+       // Handle the condition if it's an array (for multiple categories)
+       let queryCondition;
+       if (Array.isArray(condition)) {
+         queryCondition = `${line} IN (${condition.map(c => `'${c}'`).join(", ")})`;
+       } else {
+         queryCondition = `${line} = '${condition}'`;
+       }
+ 
+       const query = `SELECT * FROM ${tableName} WHERE ${queryCondition}`;
+
+      //  const query = `SELECT * FROM ${tableName} WHERE ${queryCondition}`;
       con.query(
-        `SELECT * FROM ${tableName} WHERE ${line} = '${condition}'`,
+        query,
+        // `SELECT * FROM ${tableName} WHERE ${line} = '${condition}'`,
         function (err, result) {
           if (err) {
             console.error(`Could not select from ${tableName} table`, err);
