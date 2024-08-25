@@ -4,8 +4,8 @@ function insertToTable(tableName, columns, parameters) {
   const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "12345678",
-    port: 3307,
+    password: "Moshe26!",
+    port: 3306,
     database: "presentdb",
   });
 
@@ -53,20 +53,20 @@ function insertToTable(tableName, columns, parameters) {
 
 // //Present
 // 4
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-07-28 10:00:00", "2025-07-28 10:00:00", "100", "1", "1", "123456", "False", "john.doe@fakemail.com", "0123456789", "John Doe", "Happy Birthday!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-08-01 12:00:00", "2025-08-01 12:00:00", "50", "2", "2", "234567", "False", "jane.smith@fakemail.com", "0987654321", "Jane Smith", "Congratulations!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-08-15 14:00:00", "2025-08-15 14:00:00", "75", "3", "3", "345678", "False", "alice.johnson@fakemail.com", "0112233445", "Alice Johnson", "Best wishes!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-09-01 16:00:00", "2025-09-01 16:00:00", "150", "1", "4", "456789", "False", "bob.brown@fakemail.com", "0223344556", "Bob Brown", "Thank you!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-09-15 18:00:00", "2025-09-15 18:00:00", "200", "2", "5", "567890", "False", "charlie.green@fakemail.com", "0334455667", "Charlie Green", "Happy Anniversary!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-10-01 20:00:00", "2025-10-01 20:00:00", "300", "3", "6", "678901", "False", "diana.white@fakemail.com", "0445566778", "Diana White", "Merry Christmas!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-10-15 22:00:00", "2025-10-15 22:00:00", "400", "1", "7", "789012", "False", "edward.black@fakemail.com", "0556677889", "Edward Black", "Get well soon!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-11-01 08:00:00", "2025-11-01 08:00:00", "500", "2", "8", "890123", "False", "frank.blue@fakemail.com", "0667788990", "Frank Blue", "Good luck!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-11-15 09:00:00", "2025-11-15 09:00:00", "600", "3", "9", "901234", "False", "grace.yellow@fakemail.com", "0778899001", "Grace Yellow", "Bon voyage!"');
-// insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-12-01 10:00:00", "2025-12-01 10:00:00", "700", "1", "10", "012345", "False", "henry.orange@fakemail.com", "0889900112", "Henry Orange", "Welcome home!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-07-28 10:00:00", "2025-07-28 10:00:00", "100", "1", "123456", "False", "john.doe@fakemail.com", "0123456789", "John Doe", "Happy Birthday!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-08-01 12:00:00", "2025-08-01 12:00:00", "50", "2", "234567", "False", "jane.smith@fakemail.com", "0987654321", "Jane Smith", "Congratulations!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-08-15 14:00:00", "2025-08-15 14:00:00", "75", "3", "345678", "False", "alice.johnson@fakemail.com", "0112233445", "Alice Johnson", "Best wishes!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-09-01 16:00:00", "2025-09-01 16:00:00", "150", "4", "456789", "False", "bob.brown@fakemail.com", "0223344556", "Bob Brown", "Thank you!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-09-15 18:00:00", "2025-09-15 18:00:00", "200", "5", "567890", "False", "charlie.green@fakemail.com", "0334455667", "Charlie Green", "Happy Anniversary!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-10-01 20:00:00", "2025-10-01 20:00:00", "300", "6", "678901", "False", "diana.white@fakemail.com", "0445566778", "Diana White", "Merry Christmas!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-10-15 22:00:00", "2025-10-15 22:00:00", "400", "7", "789012", "False", "edward.black@fakemail.com", "0556677889", "Edward Black", "Get well soon!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-11-01 08:00:00", "2025-11-01 08:00:00", "500", "8", "890123", "False", "frank.blue@fakemail.com", "0667788990", "Frank Blue", "Good luck!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-11-15 09:00:00", "2025-11-15 09:00:00", "600", "9", "901234", "False", "grace.yellow@fakemail.com", "0778899001", "Grace Yellow", "Bon voyage!"');
+// insertToTable('Present', 'Date, ExpirationDate, Amount, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-12-01 10:00:00", "2025-12-01 10:00:00", "700", "10", "012345", "False", "henry.orange@fakemail.com", "0889900112", "Henry Orange", "Welcome home!"');
 
 // //Category
 // 3
-//insertToTable('Category', 'Name', "'Decorations'");
+// insertToTable('Category', 'Name', "'Decorations'");
 // insertToTable('Category', 'Name', "'Clothes'");
 // insertToTable('Category', 'Name', "'Jewelry'");
 // insertToTable('Category', 'Name', "'Toys'");
@@ -79,9 +79,9 @@ function insertToTable(tableName, columns, parameters) {
 
 // //Product
 // 5
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Modern Sofa", "https://i.pinimg.com/736x/56/93/43/5693432ac9e03b7cf8a4aec5bb7eff50.jpg", "1", "1", "899.99", "Comfortable modern sofa"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', `"Designer Dress", "https://static3.azafashions.com/tr:w-317/uploads/product_gallery/1549991_3-0294381001597414635.jpg?noopt=true", "2", "2", "299.99", "Stylish designer dress"`);
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Diamond Ring", "https://cdn0.weddingwire.in/article/3503/3_2/960/jpg/3053-diamond-ring-price-in-india-candere-cover.jpeg", "3", "3", "1999.99", "Elegant diamond ring"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Modern Sofa", "https://i.pinimg.com/736x/56/93/43/5693432ac9e03b7cf8a4aec5bb7eff50.jpg", "2", "1", "899.99", "Comfortable modern sofa"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', `"Designer Dress", "https://static3.azafashions.com/tr:w-317/uploads/product_gallery/1549991_3-0294381001597414635.jpg?noopt=true", "8", "2", "299.99", "Stylish designer dress"`);
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Diamond Ring", "https://cdn0.weddingwire.in/article/3503/3_2/960/jpg/3053-diamond-ring-price-in-india-candere-cover.jpeg", "1", "3", "1999.99", "Elegant diamond ring"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Action Figure", "img/Toys/action_figure.jpeg", "4", "4", "49.99", "Popular action figure"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Smartphone", "img/Electronics/smartphone.jpeg", "5", "5", "799.99", "Latest model smartphone"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Fantasy Novel", "img/Books/fantasy_novel.jpeg", "6", "6", "19.99", "Best-selling fantasy novel"');
@@ -94,26 +94,26 @@ function insertToTable(tableName, columns, parameters) {
 //כל המוצרים שמכאן ומטה - צריך לסדר להם את המרכאות על הערכים שמכניסים לטבלה
 
 //ספרים שאני הוספתי
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Live fish or Net fish", "https://www.sifreiorhachaim.co.il/wp-content/uploads/2023/05/3211429.jpg", "5", "5", "89.99", "Reading books - Kobe Levy"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"cold blooded", "https://www.sifreiorhachaim.co.il/wp-content/smush-webp/2021/06/1879-23-300x300.jpg.webp", "5", "5", "99.99", "Reading books - Yona Sapir"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"They learned a lesson", "https://www.hbooks.co.il/images/itempics/hbooks1362_250620201509471.jpg", "5", "5", "89.99", "Reading books - Kobe Levy"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"They are on the right track", "https://www.hbooks.co.il/images/itempics/5994_221120211725051.jpg", "5", "5", "79.99", "Reading books - Kobe Levy"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"From the globe to the map of the Land of Israel", "https://static.wixstatic.com/media/edd3d5_7b5ab4288b7547518a7f3e49584e197c~mv2.jpg/v1/fill/w_520,h_694,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/edd3d5_7b5ab4288b7547518a7f3e49584e197c~mv2.jpg", "5", "5", "119.99", "Reading books - Patkin Shuki"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Abyssal scrapers", "https://www.sifreiorhachaim.co.il/wp-content/uploads/2021/06/0055464-300x300.jpg", "5", "5", "129.99", "Rabbi Mendels stories"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Live fish or Net fish", "https://www.sifreiorhachaim.co.il/wp-content/uploads/2023/05/3211429.jpg", "6", "5", "89.99", "Reading books - Kobe Levy"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"cold blooded", "https://www.sifreiorhachaim.co.il/wp-content/smush-webp/2021/06/1879-23-300x300.jpg.webp", "6", "5", "99.99", "Reading books - Yona Sapir"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"They learned a lesson", "https://www.hbooks.co.il/images/itempics/hbooks1362_250620201509471.jpg", "6", "5", "89.99", "Reading books - Kobe Levy"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"They are on the right track", "https://www.hbooks.co.il/images/itempics/5994_221120211725051.jpg", "6", "5", "79.99", "Reading books - Kobe Levy"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"From the globe to the map of the Land of Israel", "https://static.wixstatic.com/media/edd3d5_7b5ab4288b7547518a7f3e49584e197c~mv2.jpg/v1/fill/w_520,h_694,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/edd3d5_7b5ab4288b7547518a7f3e49584e197c~mv2.jpg", "6", "5", "119.99", "Reading books - Patkin Shuki"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Abyssal scrapers", "https://www.sifreiorhachaim.co.il/wp-content/uploads/2021/06/0055464-300x300.jpg", "6", "5", "129.99", "Rabbi Mendels stories"');
 
 //מכשירי חשמל לבית שהוספתי
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"LG 8 kg", "https://img.zap.co.il/pics/1/9/2/6/60006291c.gif", "7", "7", "2000", "washing machine"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Steam iron", "https://img.zap.co.il/pics/7/3/7/4/70144737c.gif", "7", "7", "1149", "Tefal GV9230 Tefal"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"steam iron", "https://img.zap.co.il/pics/6/1/2/3/55733216c.gif", "7", "7", "700", "Easy Charge 360 ​​Morphy Richards"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"LG 8 kg", "https://img.zap.co.il/pics/1/9/2/6/60006291c.gif", "9", "7", "2000", "washing machine"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Steam iron", "https://img.zap.co.il/pics/7/3/7/4/70144737c.gif", "9", "7", "1149", "Tefal GV9230 Tefal"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"steam iron", "https://img.zap.co.il/pics/6/1/2/3/55733216c.gif", "9", "7", "700", "Easy Charge 360 ​​Morphy Richards"');
 
 //תכשיטים שהוספתי
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"gold bracelet", "https://img.freepik.com/premium-photo/diamond-ring-with-cross-it_1274269-94156.jpg?w=740", "3", "3", "3500", "gold bracelet"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"gold ring", "https://img.freepik.com/free-photo/expensive-golden-ring-displayed-rocks_23-2150347043.jpg?t=st=1724337201~exp=1724340801~hmac=23768e3f2149515f305a083596aadb9ef6d6a6563b9ed57600fda4ab686ac42a&w=360", "3", "3", "3200", "gold ring"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"gold bracelet", "https://img.freepik.com/premium-photo/diamond-ring-with-cross-it_1274269-94156.jpg?w=740", "1", "3", "3500", "gold bracelet"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"gold ring", "https://img.freepik.com/free-photo/expensive-golden-ring-displayed-rocks_23-2150347043.jpg?t=st=1724337201~exp=1724340801~hmac=23768e3f2149515f305a083596aadb9ef6d6a6563b9ed57600fda4ab686ac42a&w=360", "1", "3", "3200", "gold ring"');
 
 //בגדים שהוספתי
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"sweater", "https://img.freepik.com/free-photo/fashionable-man-winter-knitted-clothes_158595-4107.jpg?t=st=1724337450~exp=1724341050~hmac=cb633a3afdd80c639d9fdd7d2e367a51b2a41476b287a0fccfecf18aaec11e46&w=740", "1", "1", "200", "Men"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Buttoned shirt", "https://img.freepik.com/free-photo/serious-young-hipster-wearing-light-denim-unbuttoned-shirt-blank-white-t-shirt-black-jeans_346278-933.jpg?t=st=1724337647~exp=1724341247~hmac=61843178933531e288b163a839abffd2444702be889d66b1c787676e918a90f1&w=996", "1", "1", "180", "Men"');
-// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"sweater", "https://img.freepik.com/premium-photo/warm-baby-coat-boys-gray-background-top-view_93675-160953.jpg?w=996", "1", "1", "120", "Baby"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"sweater", "https://img.freepik.com/free-photo/fashionable-man-winter-knitted-clothes_158595-4107.jpg?t=st=1724337450~exp=1724341050~hmac=cb633a3afdd80c639d9fdd7d2e367a51b2a41476b287a0fccfecf18aaec11e46&w=740", "8", "1", "200", "Men"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Buttoned shirt", "https://img.freepik.com/free-photo/serious-young-hipster-wearing-light-denim-unbuttoned-shirt-blank-white-t-shirt-black-jeans_346278-933.jpg?t=st=1724337647~exp=1724341247~hmac=61843178933531e288b163a839abffd2444702be889d66b1c787676e918a90f1&w=996", "8", "1", "180", "Men"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"sweater", "https://img.freepik.com/premium-photo/warm-baby-coat-boys-gray-background-top-view_93675-160953.jpg?w=996", "8", "1", "120", "Baby"');
 
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', 'Leather Jacket, img/leather_jacket.jpg, 2, 2, 249.99, Stylish leather jacket');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', 'Gold Necklace, img/gold_necklace.jpg, 3, 3, 1499.99, Beautiful gold necklace');
@@ -137,16 +137,16 @@ function insertToTable(tableName, columns, parameters) {
 
 //Cart
 // 6
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"1", "Modern Sofa", "1", "899.99", "21"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"2", "Designer Dress", "2", "299.99", "22"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"3", "Diamond Ring", "1", "1999.99", "23"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"4", "Action Figure", "5", "49.99", "24"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"5", "Smartphone", "1", "799.99", "25"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"6", "Fantasy Novel", "3", "19.99", "26"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"7", "Yoga Mat", "2", "29.99", "27"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"8", "Lipstick Set", "1", "49.99", "28"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"9", "Microwave Oven", "1", "129.99", "29"');
-// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"10", "Organic Apples", "10", "5.99", "30"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"1", "Modern Sofa", "1", "899.99", "1"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"2", "Designer Dress", "2", "299.99", "2"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"3", "Diamond Ring", "1", "1999.99", "3"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"4", "Action Figure", "5", "49.99", "4"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"5", "Smartphone", "1", "799.99", "5"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"6", "Fantasy Novel", "3", "19.99", "6"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"7", "Yoga Mat", "2", "29.99", "7"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"8", "Lipstick Set", "1", "49.99", "8"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"9", "Microwave Oven", "1", "129.99", "9"');
+// insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"10", "Organic Apples", "10", "5.99", "10"');
 // insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"11", "Wooden Coffee Table", "1", "199.99", "21"');
 // insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"12", "Leather Jacket", "1", "249.99", "22"');
 // insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"13", "Gold Necklace", "1", "1499.99", "23"');

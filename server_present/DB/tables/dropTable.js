@@ -4,8 +4,8 @@ function dropTable(tableName) {
   var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "12345678",
-  port: 3307,
+  password: "Moshe26!",
+  port: 3306,
   database: "presentdb",
 });
 
@@ -24,14 +24,14 @@ con.connect(function(err) {
 
 // dropTable("SelectPresent");
 
-  // dropTable("Present");
- //dropTable("Product");
+ //  dropTable("Present");
+//  dropTable("Product");
 
 // dropTable("Category");
 
 
 // dropTable("User");
- // dropTable("Cart");
+// dropTable("Cart");
 
 
-//  dropTable("Business");
+ // dropTable("Business");
