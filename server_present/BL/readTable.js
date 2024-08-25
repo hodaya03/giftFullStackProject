@@ -27,7 +27,7 @@ let readFromTable = async (tableName) => {
 // Exemple d'utilisation de la fonction readFromTable avec async/await
 async function fetchDataFromTable(tableName) {
     try {
-        console.log('5555');
+        // console.log('5555');
 
         const data = await readFromTable(tableName);
         console.log('data:', data);

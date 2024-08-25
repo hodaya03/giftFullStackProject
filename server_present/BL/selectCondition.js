@@ -50,7 +50,7 @@ let readFromTable = async (tableName, line, condition) => {
 async function fetchDataFromTableCondition(tableName, line, condition) {
   try {
       const data = await readFromTable(tableName, line, condition);
-      console.log('Fetched data:', data);
+      // console.log('Fetched data:', data);
       return data;
   } catch (error) {
       console.error("Error fetching data:", error);

@@ -1,30 +1,27 @@
 var mysql = require("mysql2");
 
 function insertToTable(tableName, columns, parameters) {
-    const con = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "Moshe26!",
-        port: 3306,
-        database: "presentDB",
-      });
-  
-  
-    con.connect(function (err) {
-      if (err) throw err;
-      console.log("Connected!");
-      var sql = `INSERT INTO ${tableName} (${columns}) VALUES (${parameters})`;
-      con.query(sql, function (err, result) {
+  const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "12345678",
+    port: 3307,
+    database: "presentdb",
+  });
+
+  con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = `INSERT INTO ${tableName} (${columns}) VALUES (${parameters})`;
+    con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(result.affectedRows + ` 1 record inserted to ${tableName}`);
-   });
-});
+    });
+  });
 }
-      
 
-      
 //המספרים מסבירים באיזה בדר למלאות את הדטבייס
-   
+
 // //User
 // 1
 // insertToTable('User','Mail, Password' , '"t@gmail.com", "123"');
@@ -40,7 +37,6 @@ function insertToTable(tableName, columns, parameters) {
 // insertToTable('User', 'Mail, Password', '"frank@example.com", "Fr@nkS3cur3"');
 // insertToTable('User', 'Mail, Password', '"grace@example.com", "Gr@ce!789"');
 // insertToTable('User', 'Mail, Password', '"henry@example.com", "H3nryP@ss"');
-
 
 // //Business
 // 2
@@ -68,7 +64,6 @@ function insertToTable(tableName, columns, parameters) {
 // insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-11-15 09:00:00", "2025-11-15 09:00:00", "600", "3", "9", "901234", "False", "grace.yellow@fakemail.com", "0778899001", "Grace Yellow", "Bon voyage!"');
 // insertToTable('Present', 'Date, ExpirationDate, Amount, Category, UserId, GiftCode, Buyed, DelEmail, DelPhoneNumber, DelName, DelNote', '"2024-12-01 10:00:00", "2025-12-01 10:00:00", "700", "1", "10", "012345", "False", "henry.orange@fakemail.com", "0889900112", "Henry Orange", "Welcome home!"');
 
-
 // //Category
 // 3
 //insertToTable('Category', 'Name', "'Decorations'");
@@ -81,7 +76,6 @@ function insertToTable(tableName, columns, parameters) {
 // insertToTable('Category', 'Name', "'Beauty Products'");
 // insertToTable('Category', 'Name', "'Home Appliances'");
 // insertToTable('Category', 'Name', "'Groceries'");
-
 
 // //Product
 // 5
@@ -96,6 +90,31 @@ function insertToTable(tableName, columns, parameters) {
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Microwave Oven", "img/Home_Appliances/microwave_oven.jpeg", "9", "9", "129.99", "Compact microwave oven"');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Organic Apples", "img/Groceries/organic_apples.jpeg", "10", "10", "5.99", "Fresh organic apples"');
 //insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', 'Wooden Coffee Table, img/wooden_coffee_table.jpg, 1, 1, 199.99, Elegant wooden coffee table');
+
+//כל המוצרים שמכאן ומטה - צריך לסדר להם את המרכאות על הערכים שמכניסים לטבלה
+
+//ספרים שאני הוספתי
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Live fish or Net fish", "https://www.sifreiorhachaim.co.il/wp-content/uploads/2023/05/3211429.jpg", "5", "5", "89.99", "Reading books - Kobe Levy"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"cold blooded", "https://www.sifreiorhachaim.co.il/wp-content/smush-webp/2021/06/1879-23-300x300.jpg.webp", "5", "5", "99.99", "Reading books - Yona Sapir"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"They learned a lesson", "https://www.hbooks.co.il/images/itempics/hbooks1362_250620201509471.jpg", "5", "5", "89.99", "Reading books - Kobe Levy"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"They are on the right track", "https://www.hbooks.co.il/images/itempics/5994_221120211725051.jpg", "5", "5", "79.99", "Reading books - Kobe Levy"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"From the globe to the map of the Land of Israel", "https://static.wixstatic.com/media/edd3d5_7b5ab4288b7547518a7f3e49584e197c~mv2.jpg/v1/fill/w_520,h_694,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/edd3d5_7b5ab4288b7547518a7f3e49584e197c~mv2.jpg", "5", "5", "119.99", "Reading books - Patkin Shuki"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Abyssal scrapers", "https://www.sifreiorhachaim.co.il/wp-content/uploads/2021/06/0055464-300x300.jpg", "5", "5", "129.99", "Rabbi Mendels stories"');
+
+//מכשירי חשמל לבית שהוספתי
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"LG 8 kg", "https://img.zap.co.il/pics/1/9/2/6/60006291c.gif", "7", "7", "2000", "washing machine"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Steam iron", "https://img.zap.co.il/pics/7/3/7/4/70144737c.gif", "7", "7", "1149", "Tefal GV9230 Tefal"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"steam iron", "https://img.zap.co.il/pics/6/1/2/3/55733216c.gif", "7", "7", "700", "Easy Charge 360 ​​Morphy Richards"');
+
+//תכשיטים שהוספתי
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"gold bracelet", "https://img.freepik.com/premium-photo/diamond-ring-with-cross-it_1274269-94156.jpg?w=740", "3", "3", "3500", "gold bracelet"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"gold ring", "https://img.freepik.com/free-photo/expensive-golden-ring-displayed-rocks_23-2150347043.jpg?t=st=1724337201~exp=1724340801~hmac=23768e3f2149515f305a083596aadb9ef6d6a6563b9ed57600fda4ab686ac42a&w=360", "3", "3", "3200", "gold ring"');
+
+//בגדים שהוספתי
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"sweater", "https://img.freepik.com/free-photo/fashionable-man-winter-knitted-clothes_158595-4107.jpg?t=st=1724337450~exp=1724341050~hmac=cb633a3afdd80c639d9fdd7d2e367a51b2a41476b287a0fccfecf18aaec11e46&w=740", "1", "1", "200", "Men"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"Buttoned shirt", "https://img.freepik.com/free-photo/serious-young-hipster-wearing-light-denim-unbuttoned-shirt-blank-white-t-shirt-black-jeans_346278-933.jpg?t=st=1724337647~exp=1724341247~hmac=61843178933531e288b163a839abffd2444702be889d66b1c787676e918a90f1&w=996", "1", "1", "180", "Men"');
+// insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', '"sweater", "https://img.freepik.com/premium-photo/warm-baby-coat-boys-gray-background-top-view_93675-160953.jpg?w=996", "1", "1", "120", "Baby"');
+
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', 'Leather Jacket, img/leather_jacket.jpg, 2, 2, 249.99, Stylish leather jacket');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', 'Gold Necklace, img/gold_necklace.jpg, 3, 3, 1499.99, Beautiful gold necklace');
 // insertToTable('Product', 'Name, Image, Category, BusinessId, Price, Description', 'Stuffed Animal, img/stuffed_animal.jpg, 4, 4, 29.99, Cute stuffed animal');
@@ -139,7 +158,6 @@ function insertToTable(tableName, columns, parameters) {
 // insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"19", "Blender", "1", "89.99", "29"');
 // insertToTable('Cart', 'ProductId, ProductName, Amount, Price, PresentId', '"20", "Organic Bananas", "6", "3.99", "30"');
 
-
 // "CREATE TABLE IF NOT EXISTS `Business` (`Id` INT AUTO_INCREMENT NOT NULL, `Name` NVARCHAR(20) NOT NULL, `Password` NVARCHAR(50) NOT NULL, `Phone` CHAR(10) NOT NULL, `Email` NVARCHAR(50) NOT NULL, `City` NVARCHAR(50) NOT NULL, `Country` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`));",
 // "CREATE TABLE IF NOT EXISTS `Category` (`Id` INT AUTO_INCREMENT NOT NULL, `Name` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`));",
 //  "CREATE TABLE IF NOT EXISTS `Product` (`Id` INT AUTO_INCREMENT NOT NULL, `Name` NVARCHAR(50) NOT NULL, `Image` VARCHAR(255) NOT NULL, `Category` INT NOT NULL, `BusinessId` INT NOT NULL, `Price` DECIMAL(10, 2) NOT NULL, `Description` NVARCHAR(50) NOT NULL,PRIMARY KEY (`Id`), FOREIGN KEY (`BusinessId`) REFERENCES `Business` (`Id`), FOREIGN KEY (`Category`) REFERENCES `Category` (`Id`));",
@@ -147,4 +165,6 @@ function insertToTable(tableName, columns, parameters) {
 // "CREATE TABLE IF NOT EXISTS `User` (`Id` INT AUTO_INCREMENT NOT NULL,   `Mail` VARCHAR(50) NOT NULL, `Password` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`));",
 // "CREATE TABLE IF NOT EXISTS `Present` ( `Id` INT AUTO_INCREMENT NOT NULL,`Date` DATETIME NOT NULL,`ExpirationDate` DATETIME NOT NULL, `Amount` NVARCHAR(50) NOT NULL, `Category` INT NOT NULL, `UserId` INT NOT NULL, `GiftCode` INT NOT NULL, `Buyed` NVARCHAR(50) NOT NULL, `DelEmail` NVARCHAR(50) NOT NULL, `DelPhoneNumber` NVARCHAR(50) NOT NULL, `DelName` NVARCHAR(50) NOT NULL, `DelNote` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`), FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`), FOREIGN KEY (`Category`) REFERENCES `Category` (`Id`));",
 
-//---------------------------------------------------------
+// //זה המעודכן
+// "CREATE TABLE IF NOT EXISTS `Present` ( `Id` INT AUTO_INCREMENT NOT NULL,`Date` DATETIME NOT NULL,`ExpirationDate` DATETIME NOT NULL, `Amount` NVARCHAR(50) NOT NULL, `UserId` INT NOT NULL, `GiftCode` INT NOT NULL, `Buyed` NVARCHAR(50) NOT NULL, `DelEmail` NVARCHAR(50) NOT NULL, `DelPhoneNumber` NVARCHAR(50) NOT NULL, `DelName` NVARCHAR(50) NOT NULL, `DelNote` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`), FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`), FOREIGN KEY (`Category`) REFERENCES `Category` (`Id`));",
+// "CREATE TABLE IF NOT EXISTS `PresentCategories` ( `PresentId` INT NOT NULL,`CategoryId` INT NOT NULL, PRIMARY KEY (`PresentId`, `CategoryId`), FOREIGN KEY (`PresentId`) REFERENCES `Present` (`Id`), FOREIGN KEY (`CategoryId`) REFERENCES `Category` (`Id`));"
