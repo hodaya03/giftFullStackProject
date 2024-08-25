@@ -147,3 +147,4 @@ function insertToTable(tableName, columns, parameters) {
 // "CREATE TABLE IF NOT EXISTS `User` (`Id` INT AUTO_INCREMENT NOT NULL,   `Mail` VARCHAR(50) NOT NULL, `Password` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`));",
 // "CREATE TABLE IF NOT EXISTS `Present` ( `Id` INT AUTO_INCREMENT NOT NULL,`Date` DATETIME NOT NULL,`ExpirationDate` DATETIME NOT NULL, `Amount` NVARCHAR(50) NOT NULL, `Category` INT NOT NULL, `UserId` INT NOT NULL, `GiftCode` INT NOT NULL, `Buyed` NVARCHAR(50) NOT NULL, `DelEmail` NVARCHAR(50) NOT NULL, `DelPhoneNumber` NVARCHAR(50) NOT NULL, `DelName` NVARCHAR(50) NOT NULL, `DelNote` NVARCHAR(50) NOT NULL, PRIMARY KEY (`Id`), FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`), FOREIGN KEY (`Category`) REFERENCES `Category` (`Id`));",
 
+//---------------------------------------------------------
