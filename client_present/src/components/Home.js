@@ -15,6 +15,9 @@ export default function Home() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if(user) {
+            console.log("user.Mail", user.Mail)
+        }
         fetchCategories();
     }, []);
 
@@ -58,7 +61,7 @@ export default function Home() {
                 <h1>Home</h1>
                 <div className="user-info">
                     {user ? (
-                        <span>Welcome, {user.Name}</span>
+                        <span>Welcome, {user.Mail}</span>
                     ) : (
                         <Link to="/login">Login</Link>
                     )}
