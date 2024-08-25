@@ -209,6 +209,7 @@ useEffect(() => {
         name: "",
         note: "",
       });
+      navigate('/home');
     } else {
       alert("Failed to complete order. Please try again.");
     }
