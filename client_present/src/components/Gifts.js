@@ -69,7 +69,8 @@ export default function Gift() {
       const filterProducts = () => {
         const filteredProducts = products.filter(
           //   (product) => parseInt(product.Price, 10) <= giftData.Amount
-          (product) => parseInt(product.Price, 10) <= (totalPrice-totalSelectedPrice)
+          (product) =>
+            parseInt(product.Price, 10) <= totalPrice - totalSelectedPrice
         );
         setAvailableProducts(filteredProducts);
         console.log("giftData.Amount", giftData.Amount);
@@ -86,8 +87,17 @@ export default function Gift() {
   }, [availableProducts]);
 
   const handleProductSelect = async (product) => {
-    // const newBudget = totalPrice - product.Price;
-        const newBudget = totalSelectedPrice - product.Price;
+    // // const newBudget = totalPrice - product.Price;
+    //     const newBudget = totalSelectedPrice - product.Price;
+
+    // console.log("newBudget", newBudget);
+    // console.log("totalSelectedPrice", totalSelectedPrice);
+
+    // Calculate the remaining budget
+    const remainingBudget = totalPrice - totalSelectedPrice;
+
+    // Calculate the new budget after selecting the product
+    const newBudget = remainingBudget - product.Price;
 
     console.log("newBudget", newBudget);
     console.log("totalSelectedPrice", totalSelectedPrice);
@@ -98,6 +108,8 @@ export default function Gift() {
       try {
         const query = `/products/${product.Id}`;
         let response;
+
+        // console.log('existingProduct', existingProduct);
 
         if (existingProduct) {
           const updatedProduct = {
@@ -124,11 +136,24 @@ export default function Gift() {
         }
 
         alert(response.message);
-        // setTotalPrice(newBudget);
-        setTotalSelectedPrice(newBudget);
-        setAvailableProducts(
-          availableProducts.filter((p) => product.Price <= newBudget)
+        // // setTotalPrice(newBudget);
+        // setTotalSelectedPrice(newBudget);
+
+        // Update the total selected price
+        const updatedSelectedPrice =
+          totalSelectedPrice + parseFloat(product.Price);
+        setTotalSelectedPrice(updatedSelectedPrice);
+        // setAvailableProducts(
+        //   availableProducts.filter((p) => product.Price <= newBudget)
+        // );
+
+        // Filter available products based on the new budget
+        const updatedAvailableProducts = products.filter(
+          (p) => parseFloat(p.Price) <= newBudget
         );
+        setAvailableProducts(updatedAvailableProducts);
+        console.log("Updated available products:", updatedAvailableProducts);
+
       } catch (error) {
         console.error("Error:", error);
       }
