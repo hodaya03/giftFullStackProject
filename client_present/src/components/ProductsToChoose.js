@@ -2,6 +2,10 @@ import React from 'react';
 import '../css/ProductsToChoose.css'; // Import the CSS file
 
 export default function ProductsToChoose({ availableProducts, selectedProducts, handleProductSelect }) {
+    console.log('availableProducts',availableProducts);
+    console.log('selectedProducts', selectedProducts);
+    console.log('handleProductSelect',handleProductSelect);
+    
     return (
         <div>
             <h2>Available Products</h2>

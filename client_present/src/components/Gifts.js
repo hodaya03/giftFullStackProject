@@ -23,7 +23,36 @@ export default function Gift() {
                 const response = await GoToServer(query, 'GET');
                 setGiftData(response.giftDetails);
                 setProducts(response.products);
-                setTotalPrice(response.giftDetails.Amount);
+
+                // Ensure totalPrice is treated as a number
+        const totalPrice = parseFloat(response.giftDetails.Amount);
+        setTotalPrice(totalPrice);
+                // setTotalPrice(response.giftDetails.Amount);
+            // Set the selected products from the server response
+        const selectedProducts = response.selectedProducts || [];
+        setSelectedProducts(selectedProducts);
+        console.log('response.giftDetails.Category', response.giftDetails.Category)
+
+        // Calculate the total price of the already selected products
+        const totalSelectedPrice = selectedProducts.reduce(
+          (total, product) => total + parseFloat(product.Price), // Use parseFloat to convert the Price to a number
+          0
+        );
+        console.log("totalSelectedPrice", totalSelectedPrice);
+
+          // Calculate remaining budget
+        const remainingBudget = totalPrice - totalSelectedPrice;
+
+        // Filter available products based on the remaining budget
+        setAvailableProducts(
+          response.products.filter(
+            (product) => parseFloat(product.Price) <= remainingBudget
+          )
+        );
+        console.log("remainingBudget", remainingBudget);
+        console.log('availableProducts', availableProducts);   
+            
+            
             } catch (error) {
                 setError(error.message);
             }
@@ -33,17 +62,27 @@ export default function Gift() {
     }, [idGift]);
 
     useEffect(() => {
+        
+        
+        if (products && products.length > 0 && giftData.Amount) { 
+    
         const filterProducts = () => {
             const filteredProducts = products.filter(
                 (product) => parseInt(product.Price, 10) <= giftData.Amount
             );
             setAvailableProducts(filteredProducts);
+            console.log('giftData.Amount',giftData.Amount);
+            console.log('availableProducts',availableProducts);
         };
 
-        if (products.length > 0 && giftData.Amount) {
+        //if (products.length > 0 && giftData.Amount) {
             filterProducts();
         }
     }, [products, giftData.Amount]);
+
+    useEffect(() => {
+        console.log('availableProducts', availableProducts);
+      }, [availableProducts]); 
 
     const handleProductSelect = async (product) => {
         const newBudget = totalPrice - product.Price;

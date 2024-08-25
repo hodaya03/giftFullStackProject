@@ -101,29 +101,40 @@ useEffect(() => {
     try {
        const resp = await GoToServer(userIdQuery, "GET");
     const userid = resp.Id;
-    setUserId(userid);
-    console.log('userId', userId); 
-    console.log("user.id", userId);
+
+    const userIdFromResp = resp.message; // Extract the user ID from the message field
+
+        if (userIdFromResp) {
+    //setUserId(userid);
+
+    // console.log('userId', userId); 
+    // console.log("user.id", userId);
+    setUserId(userIdFromResp);
+          console.log("userId set to:", userIdFromResp);
+        } else {
+          console.error("User ID not found in the response. Response structure:", resp);
+        }
   
     }
     catch (error) {
-            console.error('Error:', error);
-            // Handle error
-          }
+      console.error("Error fetching user ID:", error);
+    }
     };
 
-    
-      if(!user) {
-        alert("You must be connected to continue.")
-        navigate("/login");
-      }
-  updateUser();
-  console.log('userId updated:', userId);
-  // Autres actions basées sur userId ici si nécessaire
-}, [userId]);
+    if (!user) {
+      alert("You must be connected to continue.");
+      navigate("/login");
+    } else {
+      updateUser();
+      // console.log("userId updated:", userId);
+    }
+    // }, [userId]);
+  }, [user]); // Depend on `user` to re-run when `user` changes
 
 
-
+  useEffect(() => {
+    console.log("userId updated:", userId);
+  }, [userId]); // Log userId whenever it updates
  
 
 

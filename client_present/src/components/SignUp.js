@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { GoToServer, GoToServer1, convertFormDataToArray } from "../fetch";
 import '../css/SignUp.css'; // Import the CSS file
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -47,6 +49,7 @@ export default function SignUp() {
           email: "",
           password: "",
         });
+        navigate('/home');
       })
       .catch((error) => {
         console.error("Error:", error);

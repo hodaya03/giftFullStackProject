@@ -22,7 +22,8 @@ export default function Gift() {
                 const response = await GoToServer(`/api/gifts/${idGift}`, 'GET', {});
                 setGiftData(response);
                 setAvailableProducts(response.products.filter(product => product.Price <= response.maxPrice));
-                setPresentId(response.Id);
+                // setPresentId(response.Id);
+                setPresentId(response.giftDetails.Id);
             } catch (error) {
                 setError(error.message);
             }
