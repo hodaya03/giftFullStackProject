@@ -108,7 +108,6 @@ app.post("/completeOrder", async (req, res) => {
   }
 });
 
-
 //Le client doit demander le present en fonction du lien et du gift code.
 //Si la date d'expiration est passée, ou si Buyed = true, on ne peut pas lui ouvrir le site et on affiche l'erreur correspondante.
 // Lorsque l'acheteur confirme sa commande, on change Buyed en true.

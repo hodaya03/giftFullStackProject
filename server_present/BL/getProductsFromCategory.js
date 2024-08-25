@@ -8,7 +8,7 @@ let readFromTable = async (tableName, line, condition) => {
 
     con.connect(function (err) {
       if (err) {
-        reject(err); // Rejette la promesse en cas d'erreur de connexion
+        reject(err); 
         return;
       }
       con.query(

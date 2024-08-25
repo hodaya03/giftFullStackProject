@@ -10,7 +10,7 @@ let readFromTable = async (tableName, line, condition) => {
         reject(err); // Rejette la promesse en cas d'erreur de connexion
         return;
       }
-      // con.query(`SELECT * FROM ${tableName} WHERE ${line} = '${condition}'`, function (err, result, fields) {
+
       const sqlQuery = `SELECT * FROM ${tableName} WHERE ${line} = '${condition}'`;
       console.log("Executing query:", sqlQuery);
       con.query(sqlQuery, function (err, result, fields) {
@@ -30,22 +30,7 @@ let readFromTable = async (tableName, line, condition) => {
   });
 };
 
-// let readFromTable = async (tableName, line, condition) => {
-//   const con = await connectToDb();
-//   const sqlQuery = `SELECT * FROM ?? WHERE ?? = ?`;
-//   console.log("Executing query:", sqlQuery, [tableName, line, condition]);
 
-//   try {
-//       const [result] = await con.query(sqlQuery, [tableName, line, condition]);
-//       await con.end();
-//       console.log("Query result:", result);
-//       return result;
-//   } catch (err) {
-//       console.error(`Could not select from ${tableName} table`, err);
-//       await con.end();
-//       throw err;
-//   }
-// };
 
 async function fetchDataFromTableCondition(tableName, line, condition) {
   try {
@@ -58,10 +43,6 @@ async function fetchDataFromTableCondition(tableName, line, condition) {
   }
 }
 
-// fetchDataFromTableCondition("Students", "name", 'Moshe'); // Appel de la fonction pour récupérer les données
 
-//readFromTable("Students");
-//console.log('readFromTable', readFromTable);
-//console.log('fetchDataFromTable', fetchDataFromTable);
 
 module.exports = { fetchDataFromTableCondition };

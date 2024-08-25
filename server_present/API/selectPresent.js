@@ -34,8 +34,6 @@ app.get('/api/gifts/:idGift', async (req, res) => {
         const category = myGiftCard[0].Category;
         console.log("category", category);
 
-        const myProducts = await getProductsFromCategory(category);
-        console.log('myProducts', myProducts);
 
         const allDetails = {Id: myGiftCard[0].Id, Date:  myGiftCard[0].Date, ExpirationDate:  myGiftCard[0].ExpirationDate, Category:  myGiftCard[0].Category, Amount: myGiftCard[0].Amount}
 
