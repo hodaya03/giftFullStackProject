@@ -20,5 +20,6 @@ con.connect(function(err) {
 
 // deleteFromTable("Students", "name", "Itshak");
 
+deleteFromTable("User", "Id", "12");
 module.exports = {deleteFromTable};
 

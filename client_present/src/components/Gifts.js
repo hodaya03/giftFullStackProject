@@ -21,11 +21,26 @@ export default function Gift() {
     const fetchGiftData = async () => {
       try {
         const query = `/api/gifts/${idGift}`;
-        const response = await GoToServer(query, "GET");
+        //const response = await GoToServer(query, "GET");
+        
+        const response = async () => {
+            try {
+                await GoToServer(query, "GET");
+            }
+            catch(err) {
+                alert(err);
+            }
+            
+        } 
+        
+        
         setGiftData(response.giftDetails);
         setProducts(response.products);
 
         // Ensure totalPrice is treated as a number
+        console.log("amount1", response.giftDetails.Amount );
+        let am = response.giftDetails.Amount;
+        console.log("amount2", am );
         const totalPrice = parseFloat(response.giftDetails.Amount);
         setTotalPrice(totalPrice);
         // setTotalPrice(response.giftDetails.Amount);
