@@ -20,7 +20,7 @@ app.use(supplier);
 app.use(category);
 app.use(present);
 app.use(product);
-// app.use(cart);
+app.use(cart);
 app.use(selectPresent);
 
 const PORT = process.env.PORT || 5000; // Change to a different port like 5001
