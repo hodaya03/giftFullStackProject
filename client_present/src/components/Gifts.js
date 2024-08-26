@@ -87,43 +87,50 @@ export default function Gift() {
   }, [availableProducts]);
 
   const handleProductSelect = async (product) => {
-    // // const newBudget = totalPrice - product.Price;
-    //     const newBudget = totalSelectedPrice - product.Price;
-
-    // console.log("newBudget", newBudget);
-    // console.log("totalSelectedPrice", totalSelectedPrice);
-
-    // Calculate the remaining budget
     const remainingBudget = totalPrice - totalSelectedPrice;
-
-    // Calculate the new budget after selecting the product
     const newBudget = remainingBudget - product.Price;
 
     console.log("newBudget", newBudget);
     console.log("totalSelectedPrice", totalSelectedPrice);
 
-    const existingProduct = selectedProducts.find((p) => p.Id === product.Id);
+    // const existingProduct = selectedProducts.find((p) => p.Id === product.Id);
+    // const existingProduct = selectedProducts.find(
+    //   (p) => p.ProductId === product.Id
+    // );
 
     if (newBudget >= 0) {
       try {
         const query = `/products/${product.Id}`;
         let response;
+        const existingProduct = selectedProducts.find(
+          (p) => p.ProductId === product.Id
+        );
+        // const existingProduct = selectedProducts.find(
+        //   (p) => p.Id === product.Id
+        // );
 
         // console.log('existingProduct', existingProduct);
 
         if (existingProduct) {
+          // Update existing product's amount
           const updatedProduct = {
             ...existingProduct,
             Amount: existingProduct.Amount + 1,
           };
           console.log("updatedProduct", updatedProduct);
-          response = await GoToServer(query, "PUT", updatedProduct);
+          await GoToServer(query, "PUT", updatedProduct);
+
+          //   response = await GoToServer(query, "PUT", updatedProduct);
+         
+          // Update the selected products state
           setSelectedProducts(
-            selectedProducts.map((p) =>
-              p.Id === product.Id ? updatedProduct : p
+            selectedProducts.map(
+              (p) => (p.ProductId === product.Id ? updatedProduct : p)
+              //   p.Id === product.Id ? updatedProduct : p
             )
           );
         } else {
+          // Insert a new product
           const orderData = {
             ProductId: product.Id,
             ProductName: product.Name,
@@ -132,33 +139,94 @@ export default function Gift() {
             PresentId: parseInt(idGift, 10),
           };
           response = await GoToServer(query, "POST", orderData);
-          setSelectedProducts([...selectedProducts, orderData]);
-        }
 
-        alert(response.message);
-        // // setTotalPrice(newBudget);
-        // setTotalSelectedPrice(newBudget);
+          // Use the returned insertedId for the new product
+          const insertedProduct = {
+            ...orderData,
+            Id: response.insertedId, // Use the server-returned ID
+
+            // Id: response.insertedId || Date.now(), // Ensure an Id is assigned
+            // CartId: response.insertedId, // Store the CartId from the response
+          };
+          setSelectedProducts([...selectedProducts, insertedProduct]);
+
+          //   setSelectedProducts([...selectedProducts, orderData]);
+        }
 
         // Update the total selected price
         const updatedSelectedPrice =
           totalSelectedPrice + parseFloat(product.Price);
         setTotalSelectedPrice(updatedSelectedPrice);
-        // setAvailableProducts(
-        //   availableProducts.filter((p) => product.Price <= newBudget)
-        // );
 
-        // Filter available products based on the new budget
+        // Update the available products based on the new budget
         const updatedAvailableProducts = products.filter(
           (p) => parseFloat(p.Price) <= newBudget
         );
         setAvailableProducts(updatedAvailableProducts);
-        console.log("Updated available products:", updatedAvailableProducts);
 
+        alert(response.message);
+        // // // setTotalPrice(newBudget);
+        // // setTotalSelectedPrice(newBudget);
+
+        // // Update the total selected price
+        // const updatedSelectedPrice =
+        //   totalSelectedPrice + parseFloat(product.Price);
+        // setTotalSelectedPrice(updatedSelectedPrice);
+        // // setAvailableProducts(
+        // //   availableProducts.filter((p) => product.Price <= newBudget)
+        // // );
+
+        // // Filter available products based on the new budget
+        // const updatedAvailableProducts = products.filter(
+        //   (p) => parseFloat(p.Price) <= newBudget
+        // );
+        // setAvailableProducts(updatedAvailableProducts);
+        console.log("Updated available products:", updatedAvailableProducts);
       } catch (error) {
         console.error("Error:", error);
       }
     } else {
       alert("Selected product exceeds the maximum price limit.");
+    }
+  };
+
+  const handleProductDelete = async (product) => {
+    try {
+      //   const query = `/cart/${idGift}/product/${product.Id}`; // Adjust this to the correct endpoint if necessary
+      //   const query = `/cart/${giftData.Id}/product/${product.Id}`; // Adjust this to the correct endpoint if necessary
+      const query = `/cart/${giftData.Id}/product/${product.Id}`; // Use CartId instead of ProductId
+
+      const response = await GoToServer(query, "DELETE");
+
+      if (response.status === "success") {
+        //   if (response.status === 200) {
+        // Update the selectedProducts state to remove the deleted product
+        const updatedSelectedProducts = selectedProducts.filter(
+          (p) => p.Id !== product.Id
+        );
+        setSelectedProducts(updatedSelectedProducts);
+
+        // Recalculate the total selected price
+        const updatedSelectedPrice = updatedSelectedProducts.reduce(
+          (total, p) => total + parseFloat(p.Price) * p.Amount,
+          0
+        );
+        setTotalSelectedPrice(updatedSelectedPrice);
+
+        // Update available products based on the new budget
+        const remainingBudget = totalPrice - updatedSelectedPrice;
+        const updatedAvailableProducts = products.filter(
+          (p) => parseFloat(p.Price) <= remainingBudget
+        );
+        setAvailableProducts(updatedAvailableProducts);
+
+        alert("Product deleted successfully");
+      } else {
+        alert("Failed to delete the product");
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      alert("An error occurred while deleting the product");
     }
   };
 
@@ -182,6 +250,7 @@ export default function Gift() {
           availableProducts={availableProducts}
           selectedProducts={selectedProducts}
           handleProductSelect={handleProductSelect}
+          handleProductDelete={handleProductDelete}
         />
       ) : (
         <GiftDetails giftData={giftData} goToChooseGift={goToChooseGift} />
@@ -189,150 +258,3 @@ export default function Gift() {
     </div>
   );
 }
-
-// import React, { useState, useEffect } from 'react';
-// import { useParams, useNavigate } from 'react-router-dom';
-// import { GoToServer, GoToServer1 } from '../fetch';
-// import GiftDetails from './GiftDetails';
-// import ProductsToChoose from './ProductsToChoose';
-// import '../css/Gifts.css'; // Import the CSS file
-
-// export default function Gift() {
-//     const { idGift } = useParams();
-//     const [giftData, setGiftData] = useState({});
-//     const [products, setProducts] = useState([]);
-//     const [error, setError] = useState(null);
-//     const [totalPrice, setTotalPrice] = useState(0);
-//     const [selectedProducts, setSelectedProducts] = useState([]);
-//     const [availableProducts, setAvailableProducts] = useState([]);
-//     const [viewProducts, setViewProducts] = useState(false);
-//     const navigate = useNavigate();
-
-//     useEffect(() => {
-//         const fetchGiftData = async () => {
-//             try {
-//                 console.log('idGift', idGift);
-//                 const query = `/api/gifts/${idGift}`;
-//                 const response = await GoToServer(query, 'GET');
-//                 console.log('response', response);
-//                 console.log('response.giftDetails', response.giftDetails);
-//                 console.log('response.products', response.products);
-
-//                 setGiftData(response.giftDetails);
-//                 setProducts(response.products);
-//                 setTotalPrice(response.giftDetails.Amount);
-//                 console.log('totalPrice', totalPrice);
-//                 console.log('availableProducts', availableProducts);
-//                 //setAvailableProducts(response.products.filter(product => product.Price <= giftData.Amount));
-//             } catch (error) {
-//                 setError(error.message);
-//             }
-//         };
-
-//         fetchGiftData();
-//     }, [idGift]);
-
-//     useEffect(() => {
-//         const filterProducts = () => {
-//             console.log('products2', products);
-//             let filteredProducts = [];
-//             products.forEach(prod => {
-//                 console.log('product', prod);
-//                 const price = parseInt(prod.Price, 10);
-//                 if( price <= giftData.Amount) {
-//                     filteredProducts = [...filteredProducts,prod];
-//                 }
-
-//             });
-//             //  filteredProducts = products.filter((product) => product.Price <= giftData.Amount);
-//             console.log("filteredProducts", filteredProducts)
-//             setAvailableProducts(filteredProducts);
-//         };
-
-//         filterProducts();
-//     }, [products, giftData.Amount]);
-
-//     const handleProductSelect = (product) => {
-//         console.log('product', product);
-//         const newBudget = giftData.Amount - product.Price;
-//         console.log('newBudget', newBudget);
-
-//         const orderData = {
-//             ProductId: product.Id,
-//             ProductName: product.Name,
-//             Amount: 1,
-//             Price: product.Price,
-//             PresentId: parseInt(idGift, 10)
-//           };
-
-//           console.log('orderData', orderData);
-
-//         if (newBudget > 0) {
-//             setTotalPrice(newBudget);
-//             const query = `/products/${product.Id}`;
-//             GoToServer(query, "POST", orderData)
-//             .then((response) => {
-//                 alert(response.message);
-//                 setSelectedProducts([...selectedProducts, product]);
-//                 setAvailableProducts(
-//                     availableProducts.filter(p => p.Id !== product.Id && p.Price <= totalPrice)
-//                 );
-//                 console.log("availableProducts", availableProducts);
-//             })
-//             .catch((error) => {
-//                 console.error('Error:', error);
-//             })
-//         }
-//         else {
-//             alert('Selected product exceeds the maximum price limit.')
-//         };
-
-//     };
-
-//     const goToChooseGift = () => {
-//         setViewProducts(true);
-//     };
-
-//     if (error) {
-//         return <div>Error: {error}</div>;
-//     }
-
-//     if (!giftData) {
-//         return <div>Loading...</div>;
-//     }
-
-//     return (
-//         <div>
-//             <h1>You received a gift !! </h1>
-//             {viewProducts ? (
-//                 <ProductsToChoose
-//                     availableProducts={availableProducts}
-//                     selectedProducts={selectedProducts}
-//                     handleProductSelect={handleProductSelect}
-//                 />
-//             ) : (
-//                 <GiftDetails giftData={giftData} goToChooseGift={goToChooseGift} />
-//             )}
-
-//             {/* <h2>Available Products</h2>
-//             <ul>
-//                 {availableProducts.map((product, index) => (
-//                     <li key={index}>
-//                         {product.Name} - ${product.Price}
-//                         <button onClick={() => handleProductSelect(product)}>Select</button>
-//                     </li>
-//                 ))}
-//             </ul>
-
-//             <h2>Selected Products</h2>
-//             <ul>
-//                 {selectedProducts.map((product, index) => (
-//                     <li key={index}>
-//                         {product.Name} - ${product.Price}
-//                     </li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );*/ }
-//     </div>
-//     )}

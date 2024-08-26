@@ -4,8 +4,8 @@ const connectToDb = () => {
   const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Moshe26!", 
-    port: 3306,   
+    password: "12345678",
+    port: 3307,
     database: "presentdb",
   });
 
