@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
-import { GoToServer, GoToServer1 } from '../fetch';
+import { GoToServer } from '../fetch';
 import '../css/CategoryDetails.css'; // Import the CSS file
 
 export default function CategoryDetails() {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoToServer, GoToServer1 } from '../fetch';
+import { GoToServer} from '../fetch';
 import '../css/CreatingBusinessAccount.css'; // Import the CSS file
 
 export default function CreatingBusinessAccount() {

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { GoToServer, GoToServer1, convertFormDataToArray } from "../fetch";
-import '../css/SignUp.css'; // Import the CSS file
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
+import { GoToServer, convertFormDataToArray } from "../fetch";
+import "../css/SignUp.css"; // Import the CSS file
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,32 +30,59 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Form submitted");
+
     const { email, password } = formData;
     if (email === "" || password === "") {
       alert("Email and password required.");
       return;
     }
 
-    const query = `/Signup`;    
-    const parameters = convertFormDataToArray(formData);
+    // Simple email format validation
+    const emailPattern = /\S+@\S+\.\S+/;
+    if (!emailPattern.test(formData.email)) {
+      alert("Please enter a valid email.");
+      return;
+    }
 
-    GoToServer(query, "POST", { parameters })
+    console.log("Sending data to server:", formData);
 
-    // GoToServer(query, "POST", formData)
-      .then((response) => {
-        console.log("Server response:", response);
+    const query = `/Signup`;
+    // const parameters = convertFormDataToArray(formData);
+
+    // GoToServer(query, "POST", { parameters })
+    GoToServer(query, "POST", formData)
+      // .then((response) => {
+      //   console.log("Server response:", response);
+      //   if (!response.ok) {
+      //     return response.json().then((data) => {
+      //       throw new Error(data.message || "Signup failed");
+      //     });
+      //   }
+      //   return response.json();
+      // })
+      .then((data) => {
+        // .then(() => {
+        console.log("Server response:", data);
+        const { token, userId } = data;
+
         alert("User added successfully");
+
+        // Store the token in localStorage or sessionStorage
+        localStorage.setItem("token", token);
+        setUser({ username: formData.email, id: userId });
 
         // Clear form fields
         setFormData({
           email: "",
           password: "",
         });
-        navigate('/home');
+        navigate("/home");
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert(error);
+        // alert(error);
+        alert("Signup failed. Please try again.");
       });
   };
 

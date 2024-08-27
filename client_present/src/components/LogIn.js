@@ -1,123 +1,148 @@
-import React, { useState, useContext } from 'react';
-import { GoToServer, GoToServer1 } from '../fetch';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from './UserContext';
-import '../css/LogIn.css'; // Import the CSS file
+import React, { useState, useContext } from "react";
+import { GoToServer } from "../fetch";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
+import "../css/LogIn.css"; // Import the CSS file
 
 export default function LogIn() {
-    const [showLoginForm, setShowLoginForm] = useState(false);
-    const [showGiftForm, setShowGiftForm] = useState(false);
-    const [loginData, setLoginData] = useState({ username: '', password: '' });
-    const [giftCardNumber, setGiftCardNumber] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showGiftForm, setShowGiftForm] = useState(false);
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const [giftCardNumber, setGiftCardNumber] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
-    const handleLoginChange = (e) => {
-        const { name, value } = e.target;
-        setLoginData({
-            ...loginData,
-            [name]: value
-        });
-    };
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
+  };
 
-    const handleGiftCardChange = (e) => {
-        setGiftCardNumber(e.target.value);
-    };
+  const handleGiftCardChange = (e) => {
+    setGiftCardNumber(e.target.value);
+  };
 
-    const handleLoginSubmit = (e) => {
-        e.preventDefault();
-        const query = `/login`;
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const query = `/login`;
 
-        GoToServer(query, "POST", loginData)
-            .then((response) => {
-                console.log('Server response:', response);
-                
-                setUser({ username: loginData.username, id: loginData.userId });
-                navigate('/home');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                setErrorMessage('Username or password is incorrect.');
-            });
-    };
+    GoToServer(query, "POST", loginData)
+      //   .then((response) => {
+      //     // Assuming the token is in the response
+      //     // const { token, userId } = response;
+      //     console.log("Server response:", response);
+      //     console.log("response.ok", response.ok);
+      //     console.log("Response Status:", response.status);
+      //     if (!response.ok) {
+      //       return response.json().then((data) => {
+      //         console.error("Server Error:", data);
+      //         throw new Error("Network response was not ok");
+      //       });
+      //     }
+      //     return response.json();
+      //   })
+      .then((data) => {
+        // If we get here, the login was successful
+        // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        console.log("Server Data:", data);
+        const { token, userId } = data;
+        console.log("token", token);
+        // Store the token in localStorage
+        localStorage.setItem("authToken", token);
 
-    const handleGiftSubmit = (e) => {
-        e.preventDefault();
-        console.log('Gift card number submitted:', giftCardNumber);
-       navigate(`/gift/${giftCardNumber}`)
-    };
+        setUser({ username: loginData.username, id: userId });
+        // setUser({ username: loginData.username, id: loginData.userId });
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setErrorMessage("Username or password is incorrect.");
+      });
+  };
 
-    const handleSignUpClick = () => {
-        navigate('/signup');
-    };
+  const handleGiftSubmit = (e) => {
+    e.preventDefault();
+    console.log("Gift card number submitted:", giftCardNumber);
+    navigate(`/gift/${giftCardNumber}`);
+  };
 
-    return (
-        <div>
-            <h1>Login</h1>
-            <div className="buttons">
-                <button onClick={() => {
-                    setShowLoginForm(!showLoginForm);
-                    setShowGiftForm(false);
-                }}>
-                    Login
-                </button>
-                <button onClick={() => {
-                    setShowGiftForm(!showGiftForm);
-                    setShowLoginForm(false);
-                }}>
-                    Receiving a gift?
-                </button>
-            </div>
+  const handleSignUpClick = () => {
+    navigate("/signup");
+  };
 
-            {showLoginForm && (
-                <form className="forms" onSubmit={handleLoginSubmit}>
-                    <div>
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            value={loginData.username}
-                            onChange={handleLoginChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={loginData.password}
-                            onChange={handleLoginChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit">Submit</button>
-                    {errorMessage && <div className="error-message">{errorMessage}</div>}
-                    <div className="signup-button">
-                        <button onClick={handleSignUpClick}>Sign Up</button>
-                    </div>
-                </form>
-            )}
+  return (
+    <div>
+      <h1>Login</h1>
+      <div className="buttons">
+        <button
+          onClick={() => {
+            setShowLoginForm(!showLoginForm);
+            setShowGiftForm(false);
+          }}
+        >
+          Login
+        </button>
+        <button
+          onClick={() => {
+            setShowGiftForm(!showGiftForm);
+            setShowLoginForm(false);
+          }}
+        >
+          Receiving a gift?
+        </button>
+      </div>
 
-            {showGiftForm && (
-                <form className="forms" onSubmit={handleGiftSubmit}>
-                    <div>
-                        <label htmlFor="giftCardNumber">Gift Card Number:</label>
-                        <input
-                            type="text"
-                            id="giftCardNumber"
-                            name="giftCardNumber"
-                            value={giftCardNumber}
-                            onChange={handleGiftCardChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit">Submit</button>
-                </form>
-            )}
-        </div>
-    );
+      {showLoginForm && (
+        <form className="forms" onSubmit={handleLoginSubmit}>
+          <div>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={loginData.username}
+              onChange={handleLoginChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={loginData.password}
+              onChange={handleLoginChange}
+              required
+            />
+          </div>
+          <button type="submit">Submit</button>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          <div className="signup-button">
+            <button onClick={handleSignUpClick}>Sign Up</button>
+          </div>
+        </form>
+      )}
+
+      {showGiftForm && (
+        <form className="forms" onSubmit={handleGiftSubmit}>
+          <div>
+            <label htmlFor="giftCardNumber">Gift Card Number:</label>
+            <input
+              type="text"
+              id="giftCardNumber"
+              name="giftCardNumber"
+              value={giftCardNumber}
+              onChange={handleGiftCardChange}
+              required
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      )}
+    </div>
+  );
 }

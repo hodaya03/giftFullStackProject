@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GoToServer, GoToServer1 } from '../fetch';
+import { GoToServer } from '../fetch';
 import GiftDetails from './GiftDetails';
 import ProductsToChoose from './ProductsToChoose';
 import '../css/Gifts.css'; // Import the CSS file

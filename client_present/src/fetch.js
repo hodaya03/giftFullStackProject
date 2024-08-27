@@ -1,5 +1,5 @@
 
-export async function GoToServer(query, method, body) {
+export async function GoToServer1(query, method, body) {
     const serverPath = "http://localhost:5000";
     let fullpath = serverPath + query;
     console.log("fullpath::", fullpath);
@@ -39,71 +39,40 @@ export function convertFormDataToArray(formData) {
     return Object.values(formData);
 }
 
-export async function GoToServer1(endpoint, method, data = null) {
+export function GoToServer(query, method = "GET", data = null) {
+    const serverPath = "http://localhost:5000";
+    let fullpath = serverPath + query;
+    const token = localStorage.getItem('authToken');
+    const headers = {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${token}` 
+    };
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+    
     const options = {
-        method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        method: method,
+        headers: headers,
+        body: data ? JSON.stringify(data) : null
     };
 
-    if (data) {
-        options.body = JSON.stringify(data);
-    }
-
-    const response = await fetch(endpoint, options);
-    const responseData = await response.json();
-    return {
-        status: response.status,
-        data: responseData,
-    };
+    return fetch(fullpath, options)
+        // .then(response => response.json());
+        .then(response => {
+            console.log('response', response);
+            console.log('response.ok', response.ok);
+            if (!response.ok) {
+              return response.text().then((text) => {
+                throw new Error(`HTTP error! status: ${response.status}, response: ${text}`);
+              });
+            }
+            return response.json();
+          });
 }
 
 
-
-
-
-
-
-
-//   export default function GoToServer(query, method, body) {
-//     const serverPath = "http://localhost:5000";
-//     let fullpath = serverPath + query;
-//     console.log("fullpath::", fullpath);
-
-//     const fetchOptions = {
-//         method: method,
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body:''
-//     };
-
-//     if (method !== 'GET') {
-//         fetchOptions.body = JSON.stringify(body);
-//     }
-//     if (method === 'GET') {
-//         fetchOptions.body = null;
-//     }
-//     console.log("body", body)
-
-//     console.log('fetchOptions', fetchOptions)
-//     console.log('fetchOptions.body', fetchOptions.body)
-
-//     return fetch(fullpath, fetchOptions)
-//         .then((response) => {
-//             console.log("response", response);
-//             if (!response.ok) {
-//                 return response.text().then((text) => {
-//                     throw new Error(`HTTP error! status: ${response.status}, response: ${text}`);
-//                 });
-//             }
-//             return response.json();
-//         });
-// }
-
-
-// async function GoToServer1(endpoint, method, data = null) {
+// export async function GoToServer1(endpoint, method, data = null) {
 //     const options = {
 //         method,
 //         headers: {
@@ -123,7 +92,16 @@ export async function GoToServer1(endpoint, method, data = null) {
 //     };
 // }
 
-// export default GoToServer;
+
+
+
+
+
+
+
+
+
+
 
 
 

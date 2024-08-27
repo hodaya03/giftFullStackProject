@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GoToServer, GoToServer1 } from '../fetch';
+import { GoToServer } from '../fetch';
 import '../css/Product.css'; // Import the CSS file
 
 export default function Product(){
