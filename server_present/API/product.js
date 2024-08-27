@@ -52,7 +52,7 @@ app.post("/products/:id", async (req, res) => {
     if (!pres || pres.length === 0) {
       return res.status(404).json({ message: "Present not found" });
     }
-    console.log("pres", pres);
+    // console.log("pres", pres);
     const presId = pres[0].Id;
     console.log("presId", presId);
 

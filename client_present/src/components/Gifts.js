@@ -21,26 +21,25 @@ export default function Gift() {
     const fetchGiftData = async () => {
       try {
         const query = `/api/gifts/${idGift}`;
-        //const response = await GoToServer(query, "GET");
-        
-        const response = async () => {
-            try {
-                await GoToServer(query, "GET");
-            }
-            catch(err) {
-                alert(err);
-            }
-            
-        } 
-        
-        
+        const response = await GoToServer(query, "GET");
+
+        // const response = async () => {
+        //     try {
+        //         await GoToServer(query, "GET");
+        //     }
+        //     catch(err) {
+        //         alert(err);
+        //     }
+
+        // }
+
         setGiftData(response.giftDetails);
         setProducts(response.products);
 
         // Ensure totalPrice is treated as a number
-        console.log("amount1", response.giftDetails.Amount );
-        let am = response.giftDetails.Amount;
-        console.log("amount2", am );
+        // console.log("amount1", response.giftDetails.Amount );
+        // let am = response.giftDetails.Amount;
+        // console.log("amount2", am );
         const totalPrice = parseFloat(response.giftDetails.Amount);
         setTotalPrice(totalPrice);
         // setTotalPrice(response.giftDetails.Amount);
@@ -136,7 +135,7 @@ export default function Gift() {
           await GoToServer(query, "PUT", updatedProduct);
 
           //   response = await GoToServer(query, "PUT", updatedProduct);
-         
+
           // Update the selected products state
           setSelectedProducts(
             selectedProducts.map(
@@ -153,7 +152,8 @@ export default function Gift() {
             Price: product.Price,
             PresentId: parseInt(idGift, 10),
           };
-          response = await GoToServer(query, "POST", orderData);
+          // response = await GoToServer(query, "POST", orderData);
+          const response = await GoToServer(query, "POST", orderData);
 
           // Use the returned insertedId for the new product
           const insertedProduct = {
@@ -164,6 +164,7 @@ export default function Gift() {
             // CartId: response.insertedId, // Store the CartId from the response
           };
           setSelectedProducts([...selectedProducts, insertedProduct]);
+          alert(response.message);
 
           //   setSelectedProducts([...selectedProducts, orderData]);
         }
@@ -179,7 +180,6 @@ export default function Gift() {
         );
         setAvailableProducts(updatedAvailableProducts);
 
-        alert(response.message);
         // // // setTotalPrice(newBudget);
         // // setTotalSelectedPrice(newBudget);
 

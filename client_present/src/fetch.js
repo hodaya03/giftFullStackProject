@@ -68,7 +68,21 @@ export function GoToServer(query, method = "GET", data = null) {
               });
             }
             return response.json();
-          });
+          })
+          .then(data => {
+            // Ensure that the returned data is always an object with a "message" property
+            if (typeof data !== 'object' || data === null) {
+                data = { message: data };
+            } else if (!data.message) {
+                data.message = 'Success'; // Default message if not provided
+            }
+            return data;
+        })
+        .catch(error => {
+            console.error('Error in GoToServer:', error);
+            // Return a consistent error response format
+            return { message: error.message, error: true };
+        });
 }
 
 
