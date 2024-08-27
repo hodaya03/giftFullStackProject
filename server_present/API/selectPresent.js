@@ -17,7 +17,8 @@ app.get("/api/gifts/:idGift", async (req, res) => {
       idGift
     );
 
-    // console.log("Fetched data:", myGiftCard);
+    console.log("Fetched data:", myGiftCard);
+    console.log("amount", myGiftCard[0].Amount);
 
     if (!myGiftCard || myGiftCard.length === 0) {
       return res.status(404).json({ error: "Gift not found" });
@@ -65,6 +66,8 @@ app.get("/api/gifts/:idGift", async (req, res) => {
       "PresentId",
       presentId
     );
+
+    console.log("amount", myGiftCard[0].Amount);
 
     const allDetails = {
       Id: myGiftCard[0].Id,

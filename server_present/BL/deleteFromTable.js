@@ -24,6 +24,13 @@ function deleteFromTable(tableName, line, condition) {
   });
 }
 
+<<<<<<< HEAD
+// deleteFromTable("Students", "name", "Itshak");
+
+deleteFromTable("User", "Id", "12");
+module.exports = {deleteFromTable};
+=======
 // deleteFromTable("Cart", "Id", "6");
+>>>>>>> 707a7819cc8e0587248583e31f7d15382aef915c
 
 module.exports = { deleteFromTable };
